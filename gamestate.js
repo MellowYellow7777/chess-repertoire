@@ -211,9 +211,11 @@ var GameState = (() => {
     }
     var line = state.line;
     var node = state.current;
+    index--;
     while (true) {
       node = line[--index];
       if (node.children.length > 1 || !(index > 0)) {
+        node = line[++index];
         state.current = node;
         state.index = index;
         audio.play(node.children[node.forwardIndex].audio);
@@ -235,8 +237,9 @@ var GameState = (() => {
     var prev = state.current;
     var node;
     while (true) {
-      node = line[++index];
-      if (node.children.length > 1 || (index >= line.length - 1)) {
+      node = line[index++];
+      if (!node.children.length || node.children.length > 1) {
+        if (node.children.length > 1) node = line[index++];
         state.current = node;
         state.index = index;
         audio.play(prev.children[prev.forwardIndex].audio);
