@@ -148,6 +148,7 @@ var GameState = (() => {
 
     state.result = node.result;
     state.resultType = node.resultType;
+    state.index = state.line.indexOf(node);
   }
 
   // go to the node at the given index in the current line
